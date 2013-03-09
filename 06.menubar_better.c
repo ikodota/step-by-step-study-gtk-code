@@ -47,16 +47,25 @@ int main( int argc, char *argv[])
 
     /*这里构建Edit菜单，同上面的file菜单添加方法一样*/
     editmenu = gtk_menu_new();       //菜单构件(menu),也是一个menu shell
-    item_edit = gtk_menu_item_new_with_label("Edit");
-    item_undo = gtk_menu_item_new_with_label("Undo");
-    item_redo = gtk_menu_item_new_with_label("Redo");
-    item_cut = gtk_menu_item_new_with_label("Cut");
-    item_copy = gtk_menu_item_new_with_label("Copy");
-    item_paste = gtk_menu_item_new_with_label("Paste");
+    item_edit = gtk_menu_item_new_with_mnemonic("_Edit");
+    item_undo = gtk_image_menu_item_new_from_stock(GTK_STOCK_UNDO, NULL);
+    item_redo = gtk_image_menu_item_new_from_stock(GTK_STOCK_REDO, NULL);
+    sep = gtk_separator_menu_item_new();
+    item_cut = gtk_image_menu_item_new_from_stock(GTK_STOCK_CUT, NULL);
+    item_copy = gtk_image_menu_item_new_from_stock(GTK_STOCK_COPY, NULL);
+    item_paste = gtk_image_menu_item_new_from_stock(GTK_STOCK_PASTE, NULL);
+
+    gtk_widget_add_accelerator(item_undo, "activate", accel_group, GDK_z,GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(item_redo, "activate", accel_group, GDK_r,GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(item_cut, "activate", accel_group, GDK_x,GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(item_copy, "activate", accel_group, GDK_c,GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    gtk_widget_add_accelerator(item_paste, "activate", accel_group, GDK_v,GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(item_edit), editmenu);
 
+    gtk_menu_shell_append(GTK_MENU_SHELL(editmenu), item_undo);
     gtk_menu_shell_append(GTK_MENU_SHELL(editmenu), item_redo);
+    gtk_menu_shell_append(GTK_MENU_SHELL(editmenu), sep);
     gtk_menu_shell_append(GTK_MENU_SHELL(editmenu), item_cut);
     gtk_menu_shell_append(GTK_MENU_SHELL(editmenu), item_copy);
     gtk_menu_shell_append(GTK_MENU_SHELL(editmenu), item_paste);
