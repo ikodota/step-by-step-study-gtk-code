@@ -41,7 +41,7 @@ int main( int argc, char *argv[])
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
     /*函数gtk_window_set_icon() 是为窗口设置图标用的，函数create_pixbuf是我们自定义的，目的是从一个图片中获取信息得到pixbuf。*/
-    gtk_window_set_icon(GTK_WINDOW(window), create_pixbuf(".\\images\\bear.png"));
+    gtk_window_set_icon(GTK_WINDOW(window), create_pixbuf("./images/bear.png"));
 
     /***********************************以下是信号处理部分************************************/
 
