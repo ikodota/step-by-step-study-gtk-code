@@ -20,23 +20,7 @@ GdkPixbuf *create_pixbuf(const gchar * filename)
     return pixbuf;
 }
 
-<<<<<<< HEAD
 
-//根据菜单栏的选择(check)控制一些构件的显示和隐藏
-void toggle_display(GtkWidget *widget, gpointer oneofwidget)
-=======
-/*点击菜单时，状态栏显示*/
-/*
-void menu_pressed(GtkWidget *widget, gpointer window)
->>>>>>> origin/master
-{
-    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-        gtk_widget_show(oneofwidget);
-    } else {
-        gtk_widget_hide(oneofwidget);
-    }
-}
-*/
 //根据菜单栏的选择(check)控制一些构件的显示和隐藏
 void toggle_display(GtkWidget *widget, gpointer oneofwidget)
 {
@@ -55,8 +39,6 @@ int main( int argc, char *argv[])
     GtkWidget *menubar;         //菜单栏
     GtkWidget *menutoggle, *menu_tog_toggle,*menu_tog_toolbar, *menu_tog_statusbar;  //界面开关菜单
     //GtkWidget *menu_about, *menu_about_us;  //帮助菜单
-    GtkWidget *tog_toolbar_stat ,*tog_statusbar_stat;        //选择状态
-
     GtkWidget *toolbar;         //工具栏
     GtkToolItem *tool_exit, *tool_sep,*tool_about;
     GtkWidget *statusbar;       //状态栏
@@ -79,26 +61,15 @@ int main( int argc, char *argv[])
 
     menutoggle = gtk_menu_new();   //这里代表第一列菜单toggle ,也是一个menu shell
     menu_tog_toggle = gtk_menu_item_new_with_label("View");
-<<<<<<< HEAD
 
     menu_tog_toolbar = gtk_check_menu_item_new_with_label("show Toolbar");
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_tog_toolbar),TRUE);
     menu_tog_statusbar = gtk_check_menu_item_new_with_label("show Statusbar");
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_tog_statusbar),TRUE);
-=======
-    //menu_tog_toolbar = gtk_menu_item_new_with_label("show Toolbar"); //toggle 菜单中子项
-    //menu_tog_statusbar = gtk_menu_item_new_with_label("show Statusbar");
-    tog_toolbar_stat = gtk_check_menu_item_new_with_label("show Toolbar");
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(tog_toolbar_stat),TRUE);
-    tog_statusbar_stat = gtk_check_menu_item_new_with_label("show Statusbar");
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(tog_statusbar_stat),TRUE);
->>>>>>> origin/master
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_tog_toggle), menutoggle);  //widget toggle菜单加入 menutoggle menu shell
-    //gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_toolbar);
-    //gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_statusbar);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), tog_toolbar_stat);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), tog_statusbar_stat);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_toolbar);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_statusbar);
 
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), menu_tog_toggle);
@@ -133,15 +104,8 @@ int main( int argc, char *argv[])
     g_signal_connect_swapped(G_OBJECT(window),"destroy",G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(G_OBJECT(tool_exit), "clicked",G_CALLBACK(gtk_main_quit), NULL);
 
-<<<<<<< HEAD
     g_signal_connect(G_OBJECT(menu_tog_toolbar), "activate",G_CALLBACK(toggle_display), toolbar);
     g_signal_connect(G_OBJECT(menu_tog_statusbar), "activate",G_CALLBACK(toggle_display), statusbar);
-=======
-    //g_signal_connect(G_OBJECT(menu_tog_toolbar),"activate",G_CALLBACK(menu_pressed), G_OBJECT(statusbar));
-    //g_signal_connect(G_OBJECT(menu_tog_statusbar),"activate",G_CALLBACK(menu_pressed), G_OBJECT(statusbar));
-    g_signal_connect(G_OBJECT(tog_toolbar_stat), "activate",G_CALLBACK(toggle_display), toolbar);
-    g_signal_connect(G_OBJECT(tog_statusbar_stat), "activate",G_CALLBACK(toggle_display), statusbar);
->>>>>>> origin/master
 
     /***********************************以下是显示控件部分************************************/
     /*开始显示窗口*/
