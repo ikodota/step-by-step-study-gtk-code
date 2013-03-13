@@ -20,16 +20,7 @@ GdkPixbuf *create_pixbuf(const gchar * filename)
     return pixbuf;
 }
 
-/*点击菜单时，状态栏显示*/
-/*
-void menu_pressed(GtkWidget *widget, gpointer window)
-{
-    gchar *str;
-    str = g_strdup_printf("you click one menu item");
-    gtk_statusbar_push(GTK_STATUSBAR(window),gtk_statusbar_get_context_id(GTK_STATUSBAR(window), str), str);
-    g_free(str);
-}
-*/
+
 //根据菜单栏的选择(check)控制一些构件的显示和隐藏
 void toggle_display(GtkWidget *widget, gpointer oneofwidget)
 {
@@ -52,21 +43,10 @@ int main( int argc, char *argv[])
     GtkToolItem *tool_exit, *tool_sep,*tool_about;
     GtkWidget *statusbar;       //状态栏
 
-    /*初始化整个GTK+程序，是每一个GTK+程序必不可少的部分*/
     gtk_init(&argc, &argv);
-    /*这里生成了一个窗口构件——GtkWindow，GTK_WINDOW_TOPLEVEL包含窗口的标题栏和边框，同意用窗口管理器来进行管理*/
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    /*设置窗口标题*/
     gtk_window_set_title(GTK_WINDOW(window), "一步一步学GTK+ DEMO");
-    /*设置窗口默认大小*/
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 400);
-    /*
-     * 设置窗口在显示器中的位置为居中。
-     *   GTK_WIN_POS_NONE            ：不固定
-     *   GTK_WIN_POS_CENTER          : 居中
-     *   GTK_WIN_POS_MOUSE           : 出现在鼠标位置
-     *   GTK_WIN_POS_CENTER_ALWAYS   : 窗口改变大小的时候仍然居中
-    */
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
     /*函数gtk_window_set_icon() 是为窗口设置图标用的，函数create_pixbuf是我们自定义的，目的是从一个图片中获取信息得到pixbuf。*/
@@ -81,8 +61,7 @@ int main( int argc, char *argv[])
 
     menutoggle = gtk_menu_new();   //这里代表第一列菜单toggle ,也是一个menu shell
     menu_tog_toggle = gtk_menu_item_new_with_label("View");
-    //menu_tog_toolbar = gtk_menu_item_new_with_label("show Toolbar"); //toggle 菜单中子项
-    //menu_tog_statusbar = gtk_menu_item_new_with_label("show Statusbar");
+
     menu_tog_toolbar = gtk_check_menu_item_new_with_label("show Toolbar");
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_tog_toolbar),TRUE);
     menu_tog_statusbar = gtk_check_menu_item_new_with_label("show Statusbar");
@@ -125,8 +104,6 @@ int main( int argc, char *argv[])
     g_signal_connect_swapped(G_OBJECT(window),"destroy",G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(G_OBJECT(tool_exit), "clicked",G_CALLBACK(gtk_main_quit), NULL);
 
-    //g_signal_connect(G_OBJECT(menu_tog_toolbar),"activate",G_CALLBACK(menu_pressed), G_OBJECT(statusbar));
-    //g_signal_connect(G_OBJECT(menu_tog_statusbar),"activate",G_CALLBACK(menu_pressed), G_OBJECT(statusbar));
     g_signal_connect(G_OBJECT(menu_tog_toolbar), "activate",G_CALLBACK(toggle_display), toolbar);
     g_signal_connect(G_OBJECT(menu_tog_statusbar), "activate",G_CALLBACK(toggle_display), statusbar);
 
