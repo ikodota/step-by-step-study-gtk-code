@@ -20,9 +20,15 @@ GdkPixbuf *create_pixbuf(const gchar * filename)
     return pixbuf;
 }
 
+
 int main( int argc, char *argv[])
 {
     GtkWidget *window;
+    GtkWidget *vbox;            //盒装容器
+    GtkWidget *menubar;         //菜单栏
+    GtkWidget *menutoggle, *menu_tog_toggle,*menu_tog_toolbar, *menu_tog_statusbar;  //界面开关菜单
+    //GtkWidget *menu_about, *menu_about_us;  //帮助菜单
+
     /*初始化整个GTK+程序，是每一个GTK+程序必不可少的部分*/
     gtk_init(&argc, &argv);
     /*这里生成了一个窗口构件——GtkWindow，GTK_WINDOW_TOPLEVEL包含窗口的标题栏和边框，同意用窗口管理器来进行管理*/
@@ -43,6 +49,27 @@ int main( int argc, char *argv[])
     /*函数gtk_window_set_icon() 是为窗口设置图标用的，函数create_pixbuf是我们自定义的，目的是从一个图片中获取信息得到pixbuf。*/
     gtk_window_set_icon(GTK_WINDOW(window), create_pixbuf("./images/bear.png"));
 
+    /*创建一个盒装容器并添加到窗口中*/
+    vbox = gtk_vbox_new(FALSE, 0);
+    gtk_container_add(GTK_CONTAINER(window), vbox);
+
+    /*创建菜单*/
+    menubar = gtk_menu_bar_new();   //代表整个菜单,是一个menu shell
+
+    menutoggle = gtk_menu_new();   //这里代表第一列菜单toggle ,也是一个menu shell
+    menu_tog_toggle = gtk_menu_item_new_with_label("widget toggle");
+    menu_tog_toolbar = gtk_menu_item_new_with_label("show Toolbar"); //toggle 菜单中子项
+    menu_tog_statusbar = gtk_menu_item_new_with_label("show Statusbar");
+
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_tog_toggle), menutoggle);  //widget toggle菜单加入 menutoggle menu shell
+    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_toolbar);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_statusbar);
+
+    gtk_menu_shell_append(GTK_MENU_SHELL(menubar), menu_tog_toggle);
+
+
+    /*把菜单加入盒子容器*/
+    gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 3);
     /***********************************以下是信号处理部分************************************/
 
     /*关闭窗口时退出主循环*/
@@ -50,7 +77,8 @@ int main( int argc, char *argv[])
 
     /***********************************以下是显示控件部分************************************/
     /*开始显示窗口*/
-    gtk_widget_show(window);
+    //gtk_widget_show(window);
+    gtk_widget_show_all(window);
 
 
     gtk_main();
