@@ -48,8 +48,6 @@ int main( int argc, char *argv[])
     GtkWidget *menubar;         //菜单栏
     GtkWidget *menutoggle, *menu_tog_toggle,*menu_tog_toolbar, *menu_tog_statusbar;  //界面开关菜单
     //GtkWidget *menu_about, *menu_about_us;  //帮助菜单
-    GtkWidget *tog_toolbar_stat ,*tog_statusbar_stat;        //选择状态
-
     GtkWidget *toolbar;         //工具栏
     GtkToolItem *tool_exit, *tool_sep,*tool_about;
     GtkWidget *statusbar;       //状态栏
@@ -85,16 +83,15 @@ int main( int argc, char *argv[])
     menu_tog_toggle = gtk_menu_item_new_with_label("View");
     //menu_tog_toolbar = gtk_menu_item_new_with_label("show Toolbar"); //toggle 菜单中子项
     //menu_tog_statusbar = gtk_menu_item_new_with_label("show Statusbar");
-    tog_toolbar_stat = gtk_check_menu_item_new_with_label("show Toolbar");
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(tog_toolbar_stat),TRUE);
-    tog_statusbar_stat = gtk_check_menu_item_new_with_label("show Statusbar");
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(tog_statusbar_stat),TRUE);
+    menu_tog_toolbar = gtk_check_menu_item_new_with_label("show Toolbar");
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_tog_toolbar),TRUE);
+    menu_tog_statusbar = gtk_check_menu_item_new_with_label("show Statusbar");
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_tog_statusbar),TRUE);
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_tog_toggle), menutoggle);  //widget toggle菜单加入 menutoggle menu shell
-    //gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_toolbar);
-    //gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_statusbar);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), tog_toolbar_stat);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), tog_statusbar_stat);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_toolbar);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menutoggle), menu_tog_statusbar);
+
 
     gtk_menu_shell_append(GTK_MENU_SHELL(menubar), menu_tog_toggle);
 
@@ -130,8 +127,8 @@ int main( int argc, char *argv[])
 
     //g_signal_connect(G_OBJECT(menu_tog_toolbar),"activate",G_CALLBACK(menu_pressed), G_OBJECT(statusbar));
     //g_signal_connect(G_OBJECT(menu_tog_statusbar),"activate",G_CALLBACK(menu_pressed), G_OBJECT(statusbar));
-    g_signal_connect(G_OBJECT(tog_toolbar_stat), "activate",G_CALLBACK(toggle_display), toolbar);
-    g_signal_connect(G_OBJECT(tog_statusbar_stat), "activate",G_CALLBACK(toggle_display), statusbar);
+    g_signal_connect(G_OBJECT(menu_tog_toolbar), "activate",G_CALLBACK(toggle_display), toolbar);
+    g_signal_connect(G_OBJECT(menu_tog_statusbar), "activate",G_CALLBACK(toggle_display), statusbar);
 
     /***********************************以下是显示控件部分************************************/
     /*开始显示窗口*/
